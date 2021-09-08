@@ -15,3 +15,5 @@ class ArrayQ:
 
     def size(self):
         return len(self._array)
+
+    #hej kristi
