@@ -18,5 +18,5 @@ def doMagic(cards):
 
 if __name__ == "__main__":
     table = doMagic(input().split())
-    for card in table:
+    for card in table: # går igenom alla kort på bordet och printar ut dem på rad
         print(card, end=' ')
