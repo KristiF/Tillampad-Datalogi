@@ -4,15 +4,15 @@ from linkedQFile import LinkedQ
 
 def doMagic(cards):
 
-    #card_deck = ArrayQ()
-    card_deck = LinkedQ()
-    table = []
+    #card_deck = ArrayQ() # korthögen (en array)
+    card_deck = LinkedQ() # korthögen (en länkad lista)
+    table = [] # bordet där korten läggs ut
     for card in cards:
-        card_deck.enqueue(card)
+        card_deck.enqueue(card) # lägger in korten i ett kösystem i LinkedQ eller ArrayQ
 
-    while not card_deck.isEmpty():
-        card_deck.enqueue(card_deck.dequeue())
-        table.append(card_deck.dequeue())
+    while not card_deck.isEmpty(): # ifall korthögen inte är om
+        card_deck.enqueue(card_deck.dequeue()) # ta bort kortet längst fram i "kön" och lägg till det i slutet av "kön"
+        table.append(card_deck.dequeue()) # ta bort kortet som var bakom kortet som var längst fram och lägg det på bordet
     return table
 
 
