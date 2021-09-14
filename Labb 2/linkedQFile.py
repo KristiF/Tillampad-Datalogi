@@ -13,7 +13,6 @@ class LinkedQ:
         if self._first is None:
             self._first = Node(data)
             self._last = self._first
-
         else:
             self._last.next = Node(data)
             self._last = self._last.next

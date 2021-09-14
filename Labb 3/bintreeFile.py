@@ -4,11 +4,12 @@ class Bintree:
         self.root = None
 
     def put(self, newvalue):
+
         self.root = putta(self.root, newvalue)
 
     def __contains__(self,value):
         # True om value finns i trädet, False annars
-        return finns(self.root,value)
+        return finns(self.root, value)
 
     def write(self):
         # Skriver ut trädet i inorder
@@ -27,14 +28,16 @@ def putta(root, newvalue):
 
 
 def finns(root, value):
-    if root.value == value:
-        return True
-    elif root.value is None:
+    if root is None:
         return False
+    if root.value is None:
+        return False
+    elif root.value == value:
+        return True
     if value > root.value:
-        finns(root.right, value)
+        return finns(root.right, value)
     else:
-        finns(root.left, value)
+        return finns(root.left, value)
 
 def skriv(root):
     if root is None:
@@ -43,8 +46,8 @@ def skriv(root):
     print(root.value, end=' ')
     skriv(root.right)
 
-test = Bintree()
-test.put(51)
-test.put(57)
-print(test.root.right.value)
 
+test = Bintree(
+)
+
+test.write()
