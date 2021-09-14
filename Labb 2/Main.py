@@ -10,7 +10,7 @@ def doMagic(cards):
     for card in cards:
         card_deck.enqueue(card) # lägger in korten i ett kösystem i LinkedQ eller ArrayQ
 
-    while not card_deck.isEmpty(): # ifall korthögen inte är om
+    while not card_deck.isEmpty(): # ifall korthögen inte är tom
         card_deck.enqueue(card_deck.dequeue()) # ta bort kortet längst fram i "kön" och lägg till det i slutet av "kön"
         table.append(card_deck.dequeue()) # ta bort kortet som var bakom kortet som var längst fram och lägg det på bordet
     return table
