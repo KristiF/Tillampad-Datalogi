@@ -30,8 +30,6 @@ def putta(root, newvalue):
 def finns(root, value):
     if root is None:
         return False
-    if root.value is None:
-        return False
     elif root.value == value:
         return True
     if value > root.value:
@@ -47,7 +45,12 @@ def skriv(root):
     skriv(root.right)
 
 
-test = Bintree(
-)
-
+test = Bintree()
+test.put(13)
+test.put(37)
+test.put(34)
+test.put(2)
+test.put(1)
+test.put(11)
+test.put(7)
 test.write()
