@@ -44,13 +44,3 @@ def skriv(root):
     print(root.value, end=' ')
     skriv(root.right)
 
-
-test = Bintree()
-test.put(13)
-test.put(37)
-test.put(34)
-test.put(2)
-test.put(1)
-test.put(11)
-test.put(7)
-test.write()
