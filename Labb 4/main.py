@@ -1,7 +1,12 @@
 from bintreeFile import Bintree
+from linkedQFile import LinkedQ
 
 svenska = Bintree()
 gamla = Bintree()
+q = LinkedQ()
+
+class Hittat(Exception):
+    pass
 
 def ordlista():
     with open("word3.txt", "r", encoding="utf-8") as svenskfil:
@@ -11,7 +16,8 @@ def ordlista():
 
 #startord = input("Mata in startord: ")
 
-def makeChildren(startord):
+#Version 1
+def makeChildren(startord, q):
     alfabet = "abcdefghijklmnopqrstuvwxyzåäö" # definierar vilka tecken som existerar i alfabetet
     gamla.put(startord) # lägger automatiskt in startord som ett dumbarn
     for bokstav in range(len(startord)): # går igenom varje bokstav i starordet
@@ -21,13 +27,23 @@ def makeChildren(startord):
             nyttOrd = "".join(nyttOrd) # sätter ihop alla elementen i listan till en sträng och bildar det nya ordet
             if nyttOrd in svenska and nyttOrd not in gamla:
                 gamla.put(nyttOrd)
-                print(nyttOrd)
+                q.enqueue(nyttOrd )# print(nyttOrd) i version 1 samt bort med parametern q
 
 def main():
     ordlista()
     startord = input("Mata in startord: ")
     slutord = input("Mata in slutord: ")
-    makeChildren(startord)
+    q.enqueue(startord)
+    while not q.isEmpty():
+        nod = q.dequeue()
+        try:
+            makeChildren(nod, q)
+            if nod == slutord:
+                raise Hittat
+                print("Det finns ingen väg till", slutord)
+        except Hittat:
+            print("Det finns en väg till", slutord)
+            break
 
 if __name__ == '__main__':
     main()
