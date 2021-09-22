@@ -31,8 +31,8 @@ def makeChildren(startord, q):
 
 def main():
     ordlista()
-    startord = input("Mata in startord: ")
-    slutord = input("Mata in slutord: ")
+    startord = input("Välj startord: ")
+    slutord = input("Välj slutord: ")
     q.enqueue(startord)
     while not q.isEmpty():
         nod = q.dequeue()
