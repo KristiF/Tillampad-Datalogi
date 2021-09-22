@@ -22,6 +22,15 @@ def makeChildren(startord):
             if nyttOrd in svenska and nyttOrd not in gamla:
                 gamla.put(nyttOrd)
                 print(nyttOrd)
-ordlista()
-makeChildren("söt")
+
+def main():
+    ordlista()
+    startord = input("Mata in startord: ")
+    slutord = input("Mata in slutord: ")
+    makeChildren(startord)
+
+if __name__ == '__main__':
+    main()
+
+
 
