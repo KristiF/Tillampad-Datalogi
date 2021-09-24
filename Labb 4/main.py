@@ -5,18 +5,13 @@ svenska = Bintree()
 gamla = Bintree()
 q = LinkedQ()
 
-class Hittat(Exception):
-    pass
-
 def ordlista():
     with open("word3.txt", "r", encoding="utf-8") as svenskfil:
         for rad in svenskfil:
             ordet = rad.strip()  # Ett trebokstavsord per rad
             svenska.put(ordet)  # in i sökträdet
 
-#startord = input("Mata in startord: ")
-
-#Version 1
+#Version 2
 def makeChildren(startord, q):
     alfabet = "abcdefghijklmnopqrstuvwxyzåäö" # definierar vilka tecken som existerar i alfabetet
     gamla.put(startord) # lägger automatiskt in startord som ett dumbarn
@@ -36,14 +31,12 @@ def main():
     q.enqueue(startord)
     while not q.isEmpty():
         nod = q.dequeue()
-        try:
-            makeChildren(nod, q)
-            if nod == slutord:
-                raise Hittat
-                print("Det finns ingen väg till", slutord)
-        except Hittat:
+        makeChildren(nod, q)
+        if nod == slutord:
             print("Det finns en väg till", slutord)
-            break
+            return
+    print("Det finns ingen väg till", slutord)
+
 
 if __name__ == '__main__':
     main()
