@@ -10,5 +10,5 @@ def writechain_helper(nod):
     if nod.parent is None:
         print(nod.word)
     else:
-        print(nod.word)
         writechain_helper(nod.parent)
+        print(nod.word)
