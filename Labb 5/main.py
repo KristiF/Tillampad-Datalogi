@@ -64,5 +64,5 @@ def utskrift(lista):
         print(lista[0])
 
 if __name__ == '__main__':
-   utskrift([1, 2, 3, 4, 5])
-   # main()
+   #utskrift([1, 2, 3, 4, 5])
+    main()
