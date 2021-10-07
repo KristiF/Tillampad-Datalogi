@@ -5,6 +5,9 @@ class Song(object):
         self.artist = artist
         self.title = title
 
+    def __le__(self, other):
+        return self.title <= other.title
+
     def __lt__(self, other):
         return self.title < other.title
 
@@ -12,5 +15,5 @@ class Song(object):
         return self.title
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+        return self.title == other.title
 
