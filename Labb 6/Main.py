@@ -123,7 +123,7 @@ def run_tests(Tracks):
         print('Linjär sökning: {0} s| Binärsökning: {1} s| Hashtabell: {2} s'.format(round(results[i][0], 5), round(results[i][1], 5), round(results[i][2], 5)))
 
 def sorting_test(Tracks):
-    list_tests = [Tracks[0:1000], Tracks[0:10000], Tracks[0:100000], Tracks[0:1000000] ]
+    list_tests = [Tracks[0:1000], Tracks[0:10000], Tracks[0:100000], Tracks[0:1000000]]
     results = []
     for track_list in list_tests:
         quick_sort_time = timeit(stmt=lambda: quickSort(track_list, 0, len(track_list)-1), setup='', number=1)
@@ -140,3 +140,18 @@ def main():
 
 
 main()
+
+""" Vid jämförelse av linjärsökning, binärsökning och sökning i hasthtabell 
+är sökning i hashtabell den snabbaste algoritmen oberoende av hur många element som finns
+i och med att en hashtabell endast gör ungefär 1 jämförelse kommer 
+tidskomplexiteten vara O(1). Binärsökning är nästsnabbast och ökar med 
+logaritmiskt ju fler element som söks igenom, tidskomplexiteten är O(log n).
+Linjärsökning är den långsammaste algoritmen och växer linjärt med ökning
+av antal element O(n). 
+
+Vid jämförelse mellan urvalssortering och quicksort är det tydligt att quicksort 
+är den snabbaste algoritmen då urvalssortering är så pass långsam vid 100 000+ 
+element att det hade tagit för lång tid att vänta ut ett resultat.
+Detta beror på tidskomplexiteten hos de olika sorteringsmetoderna där
+quicksort har en tidskomplexitet som är O(n log n) medan urvalssortering
+har en tidskomplexitet som är O(n**2)."""
