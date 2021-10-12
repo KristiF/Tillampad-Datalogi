@@ -1,4 +1,4 @@
-from linkedQFile import LinkedQ
+from LinkedList import LinkedQ
 
 class Node:
     def __init__(self, key, value):
@@ -56,3 +56,4 @@ class HashTable:
         for i in range(len(key)):
             result += ord(key[i]) * (i + 1)
         return result % self.size
+

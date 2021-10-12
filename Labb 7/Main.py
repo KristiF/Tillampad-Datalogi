@@ -1,13 +1,15 @@
 from Pokemon import Pokemon
-from HashTable import HashTable
+from HashTable_old import HashTable
 from DictHash import DictHash
-from linkedQFile import LinkedQ
+from LinkedList import LinkedList
 
 def hashtest(key):
     result = 0
     for i in range(len(key)):
         result += ord(key[i]) * (i + 1)
     return result % 1442
+
+
 
 def loadPokemons():
     #pokemons = DictHash()
@@ -38,3 +40,4 @@ def main():
     print(pokemons.search('Bulbasaur'))
 
 main()
+
