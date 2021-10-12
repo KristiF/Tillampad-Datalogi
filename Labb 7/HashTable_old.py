@@ -40,10 +40,9 @@ class HashTable:
             raise KeyError
         else:
             if isinstance(self._array[idx], LinkedQ):
-                while not self._array[idx].isEmpty():
+                while not self._array[idx]:
                     curNode = self._array[idx].dequeue()
-                    tmp_array = []
-                    tmp_array.append(curNode)
+                    self._array[idx].enqueue(curNode)
                     if curNode.key == key:
                         return curNode.value
 
