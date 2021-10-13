@@ -5,7 +5,6 @@ class Node:
         self.key = key
         self.value = value
 
-
 class HashTable:
     def __init__(self, size):
         self.size = size
