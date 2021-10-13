@@ -36,9 +36,9 @@ def evalBool(string):
 
 def main():
     pokemons = loadPokemons()
-    print(pokemons.search('Gothorita').value.ID)
+    print(pokemons.search('Gothorita').ID)
     pokemons.store('Gothorita', 'b')
-
+    print(pokemons.search('Gothorita'))
 
 main()
 

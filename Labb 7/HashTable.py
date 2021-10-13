@@ -9,15 +9,18 @@ class Node:
 class HashTable:
     def __init__(self, size):
         self.size = size
-        self._array = [LinkedList()] * self.size
+        self._array = []
+        #self._array = [LinkedList()] * self.size
+        for i in range(self.size):
+            self._array.append(LinkedList())
 
     def store(self, key, data):
-        idx = self.hashfunction(key)
+        idx = hash(key) % self.size
         if self._array[idx].find(key, replace=True, newNode=Node(key, data)) is None:
             self._array[idx].add(Node(key, data))
 
     def search(self, key):
-        idx = self.hashfunction(key)
+        idx = hash(key) % self.size
 
         if not self._array[idx].isEmpty():
             k = self._array[idx].find(key)
