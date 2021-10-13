@@ -2,7 +2,7 @@ from HashTable import HashTable
 from sys import stdin
 
 def main():
-    hashtable = HashTable(150001)
+    hashtable = HashTable(2000000)
 
     for line in stdin:
         line = line.strip()

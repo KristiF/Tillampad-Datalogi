@@ -1,5 +1,5 @@
 from Pokemon import Pokemon
-from HashTable_old import HashTable
+from HashTable import HashTable
 from DictHash import DictHash
 from LinkedList import LinkedList
 
@@ -36,8 +36,9 @@ def evalBool(string):
 
 def main():
     pokemons = loadPokemons()
-    print(pokemons.search('Gothorita'))
-    print(pokemons.search('Bulbasaur'))
+    print(pokemons.search('Gothorita').value.ID)
+    pokemons.store('Gothorita', 'b')
+
 
 main()
 

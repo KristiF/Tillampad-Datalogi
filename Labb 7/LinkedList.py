@@ -31,8 +31,6 @@ class LinkedList:
             if cur.data.key == key:
                 if replace:
                     cur.data = newNode
-
                 return cur.data.value
-
             cur = cur.next
 
