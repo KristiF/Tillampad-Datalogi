@@ -30,5 +30,5 @@ class HashTable:
     def hashfunction(self, key):
         result = 0
         for i in range(len(key)):
-            result += ord(key[i]) * (i + 1)
+            result += ord(key[i]) * (32 ** i)
         return result % self.size

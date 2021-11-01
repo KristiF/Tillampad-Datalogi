@@ -1,12 +1,12 @@
 from Pokemon import Pokemon
 from HashTable import HashTable
 from DictHash import DictHash
-from LinkedList import LinkedList
 
 def hashtest(key):
     result = 0
     for i in range(len(key)):
-        result += ord(key[i]) * (i + 1)
+        result += ord(key[i]) * (16 ** i)
+    #return hash(key) % 1442
     return result % 1442
 
 
@@ -36,9 +36,12 @@ def evalBool(string):
 
 def main():
     pokemons = loadPokemons()
-    print(pokemons.search('Gothorita').ID)
-    pokemons.store('Gothorita', 'b')
-    print(pokemons.search('Gothorita'))
+    tabell = HashTable(10)
+    tabell.store('x', 'hej')
+    print(tabell.search('x'))
+   # print(pokemons.search('Gothorita').ID)
+   # pokemons.store('Gothorita', 'b')
+   # print(pokemons.search('Gothorita'))
 
 main()
 

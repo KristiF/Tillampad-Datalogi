@@ -18,6 +18,7 @@ class WordQueue:
             self._last = self._last.next
 
     def dequeue(self):
+        if self._first is None: return
         result = self._first
         self._first = self._first.next
         return result.data
@@ -26,5 +27,6 @@ class WordQueue:
         return (self._first and self._last) is None
 
     def peek(self):
-        while self._first is not None:
+        if self._first is not None:
             return self._first.data
+
