@@ -2,42 +2,18 @@ import unittest
 
 from syntax import *
 
-class SyntaxTest(unittest.TestCase):
-
-    def testBigLetter(self):
-        self.assertEqual(CheckSyntax("O"), "Formeln är syntaktiskt korrekt")
-
-    def testSmallLetter(self):
-        self.assertEqual(CheckSyntax("o"), "Saknade stor bokstav vid radslutet o")
-
-    def testBigSmall(self):
-        self.assertEqual(CheckSyntax("Pb"), "Formeln är syntaktiskt korrekt")
-
-    def testSmallSmall(self):
-        self.assertEqual(Checksyntax("pb"), "Saknade stor bokstav vid radslutet o")
-
-    def testWrongBigSmallNum(self):
-        self.assertEqual(Checksyntax("Pb0"), "För litet tal vid radslutet")
-
-    def testRightBigSmallSingleNum(self):
-        self.assertEqual(Checksyntax("Pb2"), "Formeln är syntaktiskt korrekt")
-
-    def testRightBigSmallMultipleNum(self):
-        self.assertEqual(Checksyntax("Pb237842738472"), "Formeln är syntaktiskt korrekt")
 
 class SyntaxTest(unittest.TestCase):
-    def testSingleCharAtom(self):
-        self.assertTrue(CheckSyntax('H'))
-        self.assertFalse(CheckSyntax('h'))
-    def testMultiCharAtom(self):
-        self.assertTrue(CheckSyntax('Ag'))
-        self.assertFalse(CheckSyntax('aH'))
-        self.assertTrue(CheckSyntax('Po'))
-        self.assertFalse(CheckSyntax('123'))
-    def testAtomNumber(self):
-        self.assertTrue(CheckSyntax('Ag21'))
-        self.assertTrue(CheckSyntax('H12344'))
-
+    def testKattisCases(self):
+        formulas = ['C(Xx4)5', 'C(OH4)C', 'C(OH4C', 'H2O)Fe', 'H0', 'H1C', 'H02C', 'Nacl', 'a', '(Cl)2)3', ')', '2']
+        expected_outputs = ['Okänd atom vid radslutet 4)5', 'Saknad siffra vid radslutet C',
+                            'Saknad högerparentes vid radslutet', 'Felaktig gruppstart vid radslutet )Fe',
+                            'För litet tal vid radslutet', 'För litet tal vid radslutet C',
+                            'För litet tal vid radslutet 2C', 'Saknad stor bokstav vid radslutet cl',
+                            'Saknad stor bokstav vid radslutet a', 'Felaktig gruppstart vid radslutet )3',
+                            'Felaktig gruppstart vid radslutet )', 'Felaktig gruppstart vid radslutet 2']
+        for i in range(formulas):
+            self.assertEqual(CheckSyntax(formulas[i]), expected_outputs[i])
 
 
 if __name__ == '__main__':

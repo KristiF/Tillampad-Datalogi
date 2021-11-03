@@ -1,7 +1,5 @@
 from WordQueue import WordQueue
 
-number_list = [2, 3, 4, 5, 6, 7, 8, 9]
-
 
 class SyntaxError(Exception): # innebär att den fungerar som vilken exception som helst.
     pass
@@ -18,7 +16,6 @@ def readAtom(q):
     readBigLetter(q)
     if q.peek() is not None and q.peek().islower():
         q.dequeue()
-#    q.dequeue()
 
 
 def readBigLetter(q):
@@ -31,20 +28,15 @@ def readBigLetter(q):
 
 def readNum(q):
     num = q.dequeue()
-    if (int(num) == 0) or (int(num) == 1 and q.peek() is None):
+    if (int(num) == 0) or (int(num) == 1 and q.peek() is None) or (q.peek() is not None and not q.peek().isnumeric()):
         raise SyntaxError('För litet tal vid radslutet ' + exportQueue(q))
     q.dequeue()
 
 
 def storeMolecule(molecule):
     q = WordQueue()
-    nums = []
     for char in molecule:
-        #if char.isnumeric():
-         #   nums.append(char)
-        #else:
             q.enqueue(char)
-    #q.enqueue("".join(nums))
     return q
 
 def exportQueue(q):
