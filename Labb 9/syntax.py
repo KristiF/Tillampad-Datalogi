@@ -45,7 +45,7 @@ def readFormula(q, atoms):
 
 
 def readMole(q, atoms, parenthesis=False):
-    readGroup(q, atoms)
+    readGroup(q, atoms, parenthesis)
 
 
 
@@ -99,7 +99,7 @@ def readLetter(q, atoms):
 def CheckSyntax(formula):  # vill fånga upp för att skriva vår egna felutskrift.
     try:
         readFormula(loadQueue(formula), loadAtoms())
-        return True
+        return 'Formeln är syntaktiskt korrekt'
     except SyntaxError as e:
         return e
 
