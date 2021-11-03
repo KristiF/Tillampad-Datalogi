@@ -1,7 +1,8 @@
+# coding=utf-8
 from WordQueue import WordQueue
 
 
-class SyntaxError(Exception):  # innebär att den fungerar som vilken exception som helst.
+class SyntaxError(Exception):
     pass
 
 
@@ -51,6 +52,8 @@ def readMole(q, atoms, parenthesis=False):
 
 def readGroup(q, atoms, parenthesis=False):
     """<atom> |<atom><num> | (<mol>) <num>"""
+    if q.peek() == '#':
+        return
 
     readAtom(q, atoms)
     if q.peek() == '(':
@@ -76,31 +79,37 @@ def readAtom(q, atoms):
 
 def readNum(q):
     if q.isEmpty() or not q.peek().isnumeric():
-        raise SyntaxError('Saknad siffra vid radslutet C')
+        raise SyntaxError('Saknad siffra vid radslutet ' + exportQueue(q))
     num = q.dequeue()
-    if (int(num) == 0) or (int(num) == 1 and q.peek() is None):
+    if (int(num) == 0) or (int(num) == 1 and not q.peek().isnumeric()):
         raise SyntaxError('För litet tal vid radslutet ' + exportQueue(q))
     while not q.isEmpty() and q.peek().isnumeric():
         q.dequeue()
 
 def readLetter(q, atoms):
-    char = q.dequeue()
+    char = q.peek()
     if char.islower():
         raise SyntaxError('Saknad stor bokstav vid radslutet ' + exportQueue(q))
+    if not char.isalpha():
+        raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
     else:
-        if not q.isEmpty() and q.peek().islower():
-            atom = char + q.peek()
+        char = q.dequeue()
+        char2 = q.peek()
+        if not q.isEmpty() and char2.islower():
+            char2 = q.dequeue()
+            atom = char + char2
+
         else:
             atom = char
-        if atom not in atoms:
+        if atom not in atoms and atom.isalpha():
             raise SyntaxError('Okänd atom vid radslutet ' + exportQueue(q))
 
-def CheckSyntax(formula):  # vill fånga upp för att skriva vår egna felutskrift.
+def CheckSyntax(formula):
     try:
         readFormula(loadQueue(formula), loadAtoms())
         return 'Formeln är syntaktiskt korrekt'
     except SyntaxError as e:
         return e
 
-while True:
-    print(CheckSyntax(input()))
+#while True:
+print(CheckSyntax(input()))
