@@ -58,7 +58,6 @@ def readGroup(q, atoms, parenthesis=False):
         q.dequeue()
 
         while not q.isEmpty() and q.peek().isalpha():
-            print(q.peek())
             readMole(q, atoms, True)
 
         if not q.peek() == ')':
