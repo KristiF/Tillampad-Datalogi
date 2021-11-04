@@ -20,11 +20,10 @@ def readAtom(q):
 
 def readBigLetter(q):
     char = q.peek()
-    if char.isupper():
-        q.dequeue()
-        return
-    else:
+
+    if not char.isalpha() or not char.isupper():
         raise SyntaxError("Saknad stor bokstav vid radslutet " + exportQueue(q))
+    q.dequeue()
 
 def readNum(q):
     num = q.dequeue()
@@ -49,15 +48,12 @@ def CheckSyntax(molecule): #vill fånga upp för att skriva vår egna felutskrif
     q = storeMolecule(molecule)
     try:
         readMolecule(q)
-        return True
+        return "Formeln är syntaktiskt korrekt"
     except SyntaxError as e:
-        print(e)
-        return False
+        return str(e)
 
 def main():
-    molecule = input("Ange molekyl: ").strip()
-    if CheckSyntax(molecule):
-        print("Formeln är syntaktiskt korrekt")
+    print(CheckSyntax(input('Ange molekyl: ').strip()))
 
 if __name__ == "__main__":
     main()
