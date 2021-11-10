@@ -65,6 +65,7 @@ def readGroup(q, parenthesis=False):
             raise SyntaxError('Saknad högerparentes vid radslutet ' + exportQueue(q))
         q.dequeue()
         readNum(q)
+
     if not q.isEmpty():
         if (q.peek() == ')' and not parenthesis):
             raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
