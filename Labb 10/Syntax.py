@@ -1,7 +1,9 @@
 #coding utf-8
 from WordQueue import WordQueue
-
+from Molgrafik import *
 p = WordQueue()
+
+
 '''
 <formel>::= <mol> 
 <mol>   ::= <group> | <group><mol>
@@ -14,7 +16,6 @@ p = WordQueue()
 
 class SyntaxError(Exception):
     pass
-
 
 def exportQueue(q):
     result = []
@@ -38,54 +39,61 @@ def loadQueue(formula):
     return q
 
 def readFormula(q):
-    readMole(q)
+    return readMole(q)
 
 def readMole(q):
-    if q.peek() == '(' or q.peek().isalpha() or not q.peek().isnumeric():
-        readGroup(q)
-        readMole(q)
+    rutan = readGroup(q)
+    if not q.isEmpty():
+        rutan.next = readMole(q)
+    return rutan
 
 def readGroup(q):
+    rutan = Ruta()
+    print(rutan.isEmpty())
     if q.peek() == '(':
         p.enqueue(q.dequeue())
         if q.peek() == ')':
             raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
-        readMole(q)
+        rutan.down = readMole(q)
     elif q.peek() == ')':
         if p.isEmpty():
             raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
         else:
             q.dequeue()
-            readNum(q)
+            rutan.num = readNum(q)
             p.dequeue()
     else:
-            readAtom(q)
-            if not q.isEmpty():
-                if q.peek().isnumeric():
-                    readNum(q)
+        rutan.atom = readAtom(q)
+        if not q.isEmpty():
+            if q.peek().isnumeric():
+                rutan.num = readNum(q)
     if not p.isEmpty() and q.isEmpty():
         raise SyntaxError('Saknad högerparentes vid radslutet ' + exportQueue(q))
+    if not rutan.isEmpty(): return rutan
 
 def readAtom(q):
-    readLetter(q)
+    return readLetter(q)
 
 def readNum(q):
+    result = []
     if not q.peek().isnumeric():
         raise SyntaxError('Saknad siffra vid radslutet ' + exportQueue(q))
     num = q.dequeue()
+    result.append(num)
     if (int(num) == 0):
         raise SyntaxError('För litet tal vid radslutet ' + exportQueue(q))
     if (int(num) == 1):
         if q.isEmpty() or not q.peek().isnumeric():
             raise SyntaxError('För litet tal vid radslutet ' + exportQueue(q))
     while not q.isEmpty() and q.peek().isnumeric():
-        q.dequeue()
+        result.append(q.dequeue())
+    return int("".join(result))
 
 def readLetter(q):
     atoms = loadAtoms()
     char = q.peek()
     if not char.isalpha():
-        raise SyntaxError('Felaktigt gruppstart vid radslutet ' + exportQueue(q))
+        raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
     elif char.islower():
         raise SyntaxError('Saknad stor bokstav vid radslutet ' + exportQueue(q))
     else:
@@ -98,6 +106,7 @@ def readLetter(q):
             atom = char
         if atom not in atoms and atom.isalpha():
             raise SyntaxError('Okänd atom vid radslutet ' + exportQueue(q))
+    return atom
 
 def CheckSyntax(formula):
     p.empty()
@@ -106,3 +115,11 @@ def CheckSyntax(formula):
         return 'Formeln är syntaktiskt korrekt'
     except SyntaxError as e:
         return str(e)
+
+def buildTree(formula):
+    p.empty()
+    rutan = readFormula(loadQueue(formula))
+    mg = Molgrafik()
+    mg.show(rutan)
+
+buildTree('Si(OH)3')

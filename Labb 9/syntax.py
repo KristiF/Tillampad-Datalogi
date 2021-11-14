@@ -4,7 +4,6 @@ from WordQueue import WordQueue
 class SyntaxError(Exception):
     pass
 
-
 def exportQueue(q):
     result = []
     while not q.isEmpty():

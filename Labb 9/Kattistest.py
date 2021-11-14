@@ -1,5 +1,5 @@
 from sys import stdin
-from syntax import *
+from syntax2 import *
 
 def main():
     for line in stdin:

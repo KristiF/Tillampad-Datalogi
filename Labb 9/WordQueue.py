@@ -30,3 +30,6 @@ class WordQueue:
         if self._first is not None:
             return self._first.data
 
+    def empty(self):
+        while not self.isEmpty():
+            self.dequeue()

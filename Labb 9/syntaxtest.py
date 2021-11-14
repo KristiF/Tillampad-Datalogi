@@ -1,6 +1,6 @@
 import unittest
 
-from syntax import CheckSyntax
+from syntax2 import CheckSyntax
 
 class SyntaxTest(unittest.TestCase):
 
