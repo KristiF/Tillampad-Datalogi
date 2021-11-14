@@ -2,7 +2,7 @@
 from WordQueue import WordQueue
 from Molgrafik import *
 p = WordQueue()
-
+molecule_weight = 0
 
 '''
 <formel>::= <mol> 
@@ -43,25 +43,26 @@ def readFormula(q):
 
 def readMole(q):
     rutan = readGroup(q)
-    if not q.isEmpty():
-        rutan.next = readMole(q)
+    if q.peek():
+        if q.peek() == "(" or q.peek().isalpha():
+            rutan.next = readMole(q)
     return rutan
 
 def readGroup(q):
     rutan = Ruta()
-    print(rutan.isEmpty())
     if q.peek() == '(':
         p.enqueue(q.dequeue())
         if q.peek() == ')':
             raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
         rutan.down = readMole(q)
-    elif q.peek() == ')':
-        if p.isEmpty():
-            raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
-        else:
-            q.dequeue()
-            rutan.num = readNum(q)
-            p.dequeue()
+        if q.peek() == ')':
+            if p.isEmpty():
+                raise SyntaxError('Felaktig gruppstart vid radslutet ' + exportQueue(q))
+            else:
+                q.dequeue()
+                rutan.num = readNum(q)
+                p.dequeue()
+
     else:
         rutan.atom = readAtom(q)
         if not q.isEmpty():
@@ -69,7 +70,7 @@ def readGroup(q):
                 rutan.num = readNum(q)
     if not p.isEmpty() and q.isEmpty():
         raise SyntaxError('Saknad högerparentes vid radslutet ' + exportQueue(q))
-    if not rutan.isEmpty(): return rutan
+    return rutan
 
 def readAtom(q):
     return readLetter(q)
@@ -111,15 +112,37 @@ def readLetter(q):
 def CheckSyntax(formula):
     p.empty()
     try:
-        readFormula(loadQueue(formula))
-        return 'Formeln är syntaktiskt korrekt'
+        return readFormula(loadQueue(formula))
     except SyntaxError as e:
         return str(e)
 
 def buildTree(formula):
     p.empty()
-    rutan = readFormula(loadQueue(formula))
+    rutan = CheckSyntax(formula)
     mg = Molgrafik()
     mg.show(rutan)
 
-buildTree('Si(OH)3')
+def weight(ruta):
+    '''
+    Basfall: q.isEmpty()
+
+    H(OH(Si)2)3
+    H
+    H.Down = OH(Si)2
+    H.Down.Next = H
+    H.Down.Next.Down = Si
+    '''
+    result = 0
+    vikter = {'H': 1.0, 'J': 2.0}
+    if ruta.down is None:
+        if not ruta.next is None:
+            result += weight(ruta.next)
+        else:
+    else:
+        result += vikter[ruta.atom]
+
+
+
+#buildTree('Si(C3(COOH)2)4(H2O)7')
+#buildTree('(CH3)2(CH2)4')
+buildTree('H(OH(Si)2)3')

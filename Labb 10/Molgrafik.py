@@ -27,11 +27,8 @@ class Ruta:
         self.next=None
         self.down=None
 
-    def isEmpty(self):
-        if self.atom == '()' and self.num == 1:
-            if self.next is None and self.down is None:
-                return True
-        return False
+    def __str__(self):
+        return '(atom: {}, num: {}, next: {}, down: {}'.format(self.atom, self.num, str(self.next), str(self.down))
 
 class Molgrafik:
     def __init__(self):
