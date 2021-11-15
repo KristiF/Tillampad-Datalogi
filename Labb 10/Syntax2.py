@@ -156,8 +156,3 @@ def weight(ruta):
     else:
         return col
 
-
-#buildTree('Si(C3(COOH)2)4(H2O)7')
-buildTree('(CH3)2(CH2)4')
-print(weight(readFormula(loadQueue('(CH3)2(CH2)4'))))
-

@@ -168,10 +168,3 @@ def readVikt(ruta):
 		return x+y
 	else:
 		return x
-
-#buildTree('Si(C3(COOH)2)4(H2O)7')
-#buildTree('(CH3)2(CH2)4')
-#ruta = CheckSyntax('Si(C3(COOH)2)4(H2O)7')
-#print(CheckSyntax('X'))
-print(readVikt(readFormula(loadQueue('H2O'))))
-print(weight(readFormula(loadQueue('H2O'))))
